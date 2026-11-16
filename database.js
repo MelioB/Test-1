@@ -12,10 +12,10 @@ window.charactersDatabase = [
         id: "gabriel",
         name: "Gabriel",
         nameStyle: "style-gabriel",
-        faction: "",
-        stats: "",
+        faction: "Melio' Klasse",
+        stats: "Stärker als Grim",
         description: "",
-        image: ""
+        image: "image/gabriel.png"
     },
     {
         id: "melio",
