@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiches de Personnages</title>
+    <!-- Police stylisée pour les noms et titres -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="mobile-container">
+        <!-- Haut de page : Choix du personnage -->
+        <header class="top-bar">
+            <select id="character-select" aria-label="Choisir un personnage">
+                <!-- Les options seront générées automatiquement via database.js -->
+            </select>
+        </header>
+
+        <!-- Trait noir de délimitation -->
+        <hr class="divider">
+
+        <!-- Bas de page : Fiche du personnage -->
+        <main class="character-sheet">
+            
+            <!-- Partie supérieure : Infos à gauche + Image carrée à droite -->
+            <div class="top-section">
+                <div class="left-info">
+                    <!-- Nom stylisé -->
+                    <div class="box-name">
+                        <h1 id="char-name">Nom</h1>
+                    </div>
+
+                    <!-- Faction -->
+                    <div class="box-faction">
+                        <span id="char-faction">Faction</span>
+                    </div>
+
+                    <!-- Statistiques -->
+                    <div class="box-stats">
+                        <h3>Statistiques</h3>
+                        <div id="char-stats"></div>
+                    </div>
+                </div>
+
+                <!-- Image en carré à droite des stats -->
+                <div class="right-image">
+                    <div class="box-image">
+                        <img id="char-image" src="" alt="Image du personnage">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Partie inférieure : Description sur toute la largeur -->
+            <div class="box-description">
+                <h3>Description</h3>
+                <p id="char-description"></p>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Chargement des scripts (database en premier !) -->
+    <script src="database.js"></script>
+    <script src="scrypte.js"></script>
+</body>
+</html>

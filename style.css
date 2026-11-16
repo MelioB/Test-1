@@ -1,0 +1,221 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0d0d12;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Format téléphone */
+.mobile-container {
+    width: 100%;
+    max-width: 430px;
+    background-color: #16161e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+}
+
+/* --- ZONE DU HAUT (Sélecteur) --- */
+.top-bar {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #1a1a24;
+}
+
+#character-select {
+    width: 85%;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    background-color: #252533;
+    border: 2px solid #3f3f5a;
+    border-radius: 8px;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Trait noir de délimitation */
+.divider {
+    border: none;
+    height: 4px;
+    background-color: #000000;
+    width: 100%;
+}
+
+/* --- ZONE DU BAS (Fiche Perso) --- */
+.character-sheet {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px 12px;
+    flex: 1;
+}
+
+/* Bloc supérieur : Gauche (Nom, Faction, Stats) + Droite (Image carrée) */
+.top-section {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-end; /* Aligne le bas de l'image carrée avec le bas des stats */
+}
+
+.left-info {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.right-image {
+    width: 45%;
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Nom */
+.box-name {
+    padding: 2px 0;
+}
+
+#char-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.75rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+/* Faction */
+.box-faction {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-left: 3px solid #6c6c8a;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #b8b8d0;
+    min-height: 28px;
+    display: flex;
+    align-items: center;
+}
+
+/* Stats */
+.box-stats {
+    background-color: #1f1f2b;
+    border: 1px solid #2e2e42;
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 130px;
+}
+
+.box-stats h3, .box-description h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #8888a8;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+#char-stats {
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* Image en carré à côté des stats */
+.box-image {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Force un format carré parfait */
+    background-color: #1f1f2b;
+    border: 1px solid #2e2e42;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#char-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Description sur toute la largeur */
+.box-description {
+    width: 100%;
+    background-color: #1f1f2b;
+    border: 1px solid #2e2e42;
+    border-radius: 8px;
+    padding: 12px;
+    flex: 1;
+    min-height: 180px;
+}
+
+#char-description {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #dcdce6;
+}
+
+/* =========================================
+   STYLES SPÉCIAUX DES NOMS DES PERSONNAGES
+   ========================================= */
+
+/* Grim : Rouge feu */
+.style-grim {
+    background: linear-gradient(180deg, #ffdd00 0%, #ff5500 50%, #cc0000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 8px rgba(255, 69, 0, 0.75));
+}
+
+/* Gabriel : Blanc lumière */
+.style-gabriel {
+    color: #ffffff;
+    text-shadow: 0 0 8px #ffffff, 0 0 18px #e0f7ff, 0 0 28px #a8e6ff;
+}
+
+/* Melio : Couleur divine (Or céleste et lumière sacrée) */
+.style-melio {
+    background: linear-gradient(180deg, #fffbe0 0%, #ffd700 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+}
+
+/* Mirai : Mélange Rouge / Blanc (avec dominance de rouge) */
+.style-mirai {
+    background: linear-gradient(90deg, #ffffff 5%, #ff2a2a 45%, #b30000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(255, 30, 30, 0.8));
+}
+
+/* Shidou : Mélange Violet / Bleu */
+.style-shidou {
+    background: linear-gradient(90deg, #a855f7 15%, #3b82f6 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.65));
+}
+
+/* Style par défaut */
+.style-default {
+    color: #ffffff;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
