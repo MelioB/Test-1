@@ -205,12 +205,12 @@ body {
     filter: drop-shadow(0 0 10px rgba(255, 42, 0, 0.8));
 }
 
-/* Gabriel : Blanc Nacré et Bleu Céleste */
+/* Gabriel : Blanc nacré et Or éclatant */
 .style-gabriel {
-    background: linear-gradient(180deg, #ffffff 30%, #00f2fe 100%);
+    background: linear-gradient(180deg, #ffffff 20%, #ffe600 60%, #ffaa00 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.8));
+    filter: drop-shadow(0 0 10px rgba(255, 230, 0, 0.7));
 }
 
 /* Melio : Or Divin Scintillant */
