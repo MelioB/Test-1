@@ -37,8 +37,8 @@
         initViewMode();
 
         if (db.length === 0) {
-            el.name.textContent = "Aucun personnage";
-            el.desc.textContent = "Vérifie que database.js est bien chargé.";
+            el.name.textContent = "Keine Charaktere";
+            el.desc.textContent = "Prüfe, ob database.js geladen ist.";
             return;
         }
 
@@ -71,7 +71,7 @@
             name.textContent = char.name;
             const faction = document.createElement("span");
             faction.className = "roster-faction";
-            faction.textContent = char.faction || "Faction inconnue";
+            faction.textContent = char.faction || "Unbekannte Fraktion";
             text.append(name, faction);
 
             btn.append(avatar, text);
@@ -111,7 +111,7 @@
                 return;
             }
 
-            setText(el.stats, stats, "Statistiques à venir…");
+            setText(el.stats, stats, "Werte folgen…");
         }
 
         function show(index, options = {}) {
@@ -130,11 +130,13 @@
             el.faction.textContent = char.faction || "—";
 
             renderStats(char.stats);
-            setText(el.desc, char.description, "Description à venir…");
+            setText(el.desc, char.description, "Beschreibung folgt…");
+
+            el.img.parentElement.classList.toggle("fill", char.imageFit === "cover");
 
             if (char.image) {
                 el.img.src = char.image;
-                el.img.alt = "Portrait de " + char.name;
+                el.img.alt = "Porträt von " + char.name;
                 el.img.hidden = false;
                 el.placeholder.hidden = true;
             } else {

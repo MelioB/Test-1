@@ -234,7 +234,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .box-image {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 5;
     border-radius: 20px;
     overflow: hidden;
     border: 2px solid var(--accent);
@@ -250,6 +250,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
     height: 100%;
     object-fit: contain;
     object-position: bottom center;
+}
+
+/* Image qui remplit tout le cadre (imageFit: "cover" dans database.js) */
+.box-image.fill #char-image {
+    object-fit: cover;
+    object-position: top center;
 }
 
 .placeholder {
@@ -472,7 +478,6 @@ body.layout-pc .character-sheet {
 }
 
 body.layout-pc .portrait { align-self: start; position: sticky; top: 24px; }
-body.layout-pc .box-image { aspect-ratio: 4 / 5; }
 body.layout-pc .info { gap: 16px; }
 body.layout-pc #char-name { font-size: 3.2rem; }
 body.layout-pc .box-panel { padding: 18px 20px; }

@@ -16,6 +16,8 @@
                    [ { label: "Force", value: 80 }, ... ]  (valeur 0-100)
    - description : texte libre (les "\n" sont gardés)
    - image       : chemin vers l'image (ex : "image/grim1.png")
+   - imageFit    : "cover" = l'image remplit tout le cadre (bords compris)
+                   "contain" (par défaut) = l'image entière, sans rognage
    ========================================================= */
 
 window.charactersDatabase = [
@@ -37,7 +39,8 @@ window.charactersDatabase = [
         faction: "Melio' Klasse",
         stats: "Stärker als Grim",
         description: "",
-        image: "image/gabriel.png"
+        image: "image/gabriel.png",
+        imageFit: "cover"
     },
     {
         id: "melio",
