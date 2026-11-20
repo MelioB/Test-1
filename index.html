@@ -2,66 +2,102 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiches de Personnages</title>
-    <!-- Police stylisée pour les noms et titres -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Melio World — fiches des personnages.">
+    <meta name="theme-color" content="#0f1020">
+    <title>Melio World — Fiches de personnages</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+
+    <!-- Polices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="layout-mobile">
 
-    <div class="mobile-container">
-        <!-- Haut de page : Choix du personnage -->
+    <div class="app">
+
+        <!-- ===== EN-TÊTE ===== -->
         <header class="top-bar">
-            <select id="character-select" aria-label="Choisir un personnage">
-                <!-- Les options seront générées automatiquement via database.js -->
-            </select>
+            <a class="brand" href="#">
+                <span class="brand-mark" aria-hidden="true">✦</span>
+                <span class="brand-text">Melio World</span>
+            </a>
+
+            <!-- Choix du mode d'affichage -->
+            <div class="view-switch" role="group" aria-label="Mode d'affichage">
+                <button type="button" data-mode="auto"   title="Automatique">Auto</button>
+                <button type="button" data-mode="mobile" title="Mode téléphone" aria-label="Mode téléphone">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+                </button>
+                <button type="button" data-mode="pc" title="Mode PC" aria-label="Mode PC">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </button>
+            </div>
         </header>
 
-        <!-- Trait noir de délimitation -->
-        <hr class="divider">
+        <div class="divider" aria-hidden="true"></div>
 
-        <!-- Bas de page : Fiche du personnage -->
-        <main class="character-sheet">
-            
-            <!-- Partie supérieure : Infos à gauche + Image carrée à droite -->
-            <div class="top-section">
-                <div class="left-info">
-                    <!-- Nom stylisé -->
+        <div class="layout">
+
+            <!-- ===== LISTE DES PERSONNAGES (barre de puces sur mobile, menu latéral sur PC) ===== -->
+            <nav class="roster" aria-label="Personnages">
+                <h2 class="roster-title">Personnages</h2>
+                <ul id="roster-list" class="roster-list">
+                    <!-- Généré automatiquement depuis database.js -->
+                </ul>
+            </nav>
+
+            <!-- ===== FICHE DU PERSONNAGE ===== -->
+            <main id="sheet" class="character-sheet" aria-live="polite">
+
+                <section class="portrait">
+                    <div class="box-image">
+                        <img id="char-image" src="" alt="">
+                        <div id="char-placeholder" class="placeholder" hidden>
+                            <span id="char-initial">?</span>
+                            <small>Image à venir</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="info">
                     <div class="box-name">
+                        <span class="counter" id="char-counter">1 / 1</span>
                         <h1 id="char-name">Nom</h1>
                     </div>
 
-                    <!-- Faction -->
                     <div class="box-faction">
-                        <span id="char-faction">Faction</span>
+                        <span class="label">Faction</span>
+                        <span id="char-faction">—</span>
                     </div>
 
-                    <!-- Statistiques -->
-                    <div class="box-stats">
+                    <div class="box-panel box-stats">
                         <h3>Statistiques</h3>
                         <div id="char-stats"></div>
                     </div>
-                </div>
 
-                <!-- Image en carré à droite des stats -->
-                <div class="right-image">
-                    <div class="box-image">
-                        <img id="char-image" src="" alt="Image du personnage">
+                    <div class="box-panel box-description">
+                        <h3>Description</h3>
+                        <p id="char-description"></p>
                     </div>
+                </section>
+
+                <!-- Navigation précédent / suivant -->
+                <div class="pager">
+                    <button type="button" id="prev-btn" class="pager-btn" aria-label="Personnage précédent">‹</button>
+                    <span class="pager-hint">Glisse ou utilise les flèches</span>
+                    <button type="button" id="next-btn" class="pager-btn" aria-label="Personnage suivant">›</button>
                 </div>
-            </div>
+            </main>
+        </div>
 
-            <!-- Partie inférieure : Description sur toute la largeur -->
-            <div class="box-description">
-                <h3>Description</h3>
-                <p id="char-description"></p>
-            </div>
-
-        </main>
+        <footer class="site-footer">Melio World ✦ <span id="year"></span></footer>
     </div>
 
-    <!-- Chargement des scripts (database en premier !) -->
+    <!-- Scripts (database en premier !) -->
     <script src="database.js"></script>
     <script src="scrypte.js"></script>
 </body>

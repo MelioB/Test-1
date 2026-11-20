@@ -1,238 +1,560 @@
-* {
+/* =========================================================
+   MELIO WORLD — Feuille de style
+   ---------------------------------------------------------
+   1. Variables & base
+   2. En-tête
+   3. Liste des personnages
+   4. Fiche personnage (mode TÉLÉPHONE = par défaut)
+   5. Mode PC  (body.layout-pc)
+   6. Animations & accessibilité
+   7. Styles spéciaux des noms
+   ========================================================= */
+
+/* ---------- 1. Variables & base ---------- */
+:root {
+    --bg: #0f1020;
+    --surface: #18192d;
+    --panel: #222442;
+    --panel-2: #1c1d38;
+    --text: #f8fafc;
+    --text-soft: #cbd5e1;
+    --muted: #7c84a6;
+    --pink: #ff007f;
+    --violet: #7928ca;
+    --indigo: #4f46e5;
+    --cyan: #00f2fe;
+    --accent: #7928ca;          /* changé par le JS selon le personnage */
+    --radius: 14px;
+}
+
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+html { -webkit-text-size-adjust: 100%; }
+
 body {
-    background-color: #0f1020; /* Fond sombre spatial et contrasté pour faire ressortir les couleurs */
-    color: #f8fafc;
-    font-family: 'Poppins', sans-serif;
+    background:
+        radial-gradient(circle at 15% 0%, rgba(121, 40, 202, 0.25), transparent 45%),
+        radial-gradient(circle at 85% 100%, rgba(0, 242, 254, 0.12), transparent 45%),
+        var(--bg);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: 'Poppins', system-ui, sans-serif;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    min-height: 100vh;
 }
 
-/* Format téléphone */
-.mobile-container {
+img { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
+button { font: inherit; color: inherit; cursor: pointer; }
+
+.app {
     width: 100%;
-    max-width: 430px;
-    background-color: #18192d; /* Fond de la carte ultra propre */
+    max-width: 480px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: var(--surface);
+    border-inline: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 0 35px rgba(99, 102, 241, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* --- ZONE DU HAUT (Sélecteur ultra coloré) --- */
+/* ---------- 2. En-tête ---------- */
 .top-bar {
-    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
-    justify-content: center;
-    background: linear-gradient(135deg, #ff007f 0%, #7928ca 50%, #4f46e5 100%);
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    padding-top: max(14px, env(safe-area-inset-top));
+    background: linear-gradient(135deg, var(--pink) 0%, var(--violet) 50%, var(--indigo) 100%);
     box-shadow: inset 0 -4px 10px rgba(0, 0, 0, 0.2);
 }
 
-#character-select {
-    width: 90%;
-    padding: 14px 18px;
-    font-size: 16px;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.brand-mark {
+    font-size: 1.3rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.brand-text {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.view-switch {
+    display: flex;
+    padding: 3px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.view-switch button {
+    display: grid;
+    place-items: center;
+    min-width: 34px;
+    height: 30px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    font-size: 0.7rem;
     font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-    color: #ffffff;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 14px;
-    outline: none;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
 }
 
-#character-select:hover {
-    border-color: #ffffff;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-    transform: translateY(-2px);
+.view-switch svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
 }
 
-/* Trait de délimitation néon */
+.view-switch button:hover { background: rgba(255, 255, 255, 0.15); }
+.view-switch button.active {
+    background: #fff;
+    color: var(--violet);
+}
+
 .divider {
-    border: none;
     height: 4px;
-    background: linear-gradient(90deg, #ff007f, #7928ca, #00f2fe);
-    width: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--violet), var(--cyan));
     box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
 }
 
-/* --- ZONE DU BAS (Fiche Perso) --- */
-.character-sheet {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 16px 14px;
+/* ---------- 3. Liste des personnages (mobile : puces défilantes) ---------- */
+.layout {
     flex: 1;
-}
-
-/* Partie supérieure : Gauche (Nom, Faction, Stats) + Droite (Image carrée) */
-.top-section {
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    align-items: flex-end;
-}
-
-.left-info {
-    width: 55%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
-.right-image {
-    width: 45%;
+.roster {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.roster-title {
+    display: none;
+}
+
+.roster-list {
+    list-style: none;
     display: flex;
-    align-items: flex-end;
+    gap: 10px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
 }
+.roster-list::-webkit-scrollbar { display: none; }
 
-/* Nom */
-.box-name {
-    padding: 2px 0;
-}
-
-#char-name {
-    font-family: 'Cinzel', serif;
-    font-size: 1.7rem;
-    font-weight: 900;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    line-height: 1.1;
-}
-
-/* FACTION : Transformée en badge ultra stylé et coloré */
-.box-faction {
-    background: linear-gradient(135deg, rgba(255, 0, 127, 0.15), rgba(121, 40, 202, 0.15));
-    border: 1px solid rgba(255, 0, 127, 0.4);
-    border-left: 5px solid #ff007f;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #ff85c0;
-    min-height: 32px;
+.roster-item {
+    --c: var(--violet);
+    flex: 0 0 auto;
+    scroll-snap-align: start;
     display: flex;
     align-items: center;
-    box-shadow: 0 4px 12px rgba(255, 0, 127, 0.15);
-    text-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
+    gap: 8px;
+    padding: 5px 14px 5px 5px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    background: var(--panel);
+    text-align: left;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
-/* Stats */
-.box-stats {
-    background: linear-gradient(135deg, #222442 0%, #1c1d38 100%);
-    border: 1px solid rgba(121, 40, 202, 0.3);
-    border-radius: 14px;
-    padding: 12px;
-    min-height: 130px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+.roster-item:hover { transform: translateY(-1px); border-color: var(--c); }
+
+.roster-item[aria-current="true"] {
+    border-color: var(--c);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--c) 30%, var(--panel)), var(--panel));
+    box-shadow: 0 0 14px color-mix(in srgb, var(--c) 50%, transparent);
 }
 
-.box-stats h3, .box-description h3 {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    color: #00f2fe;
-    margin-bottom: 6px;
-    letter-spacing: 1.5px;
-    font-weight: 800;
-    text-shadow: 0 0 6px rgba(0, 242, 254, 0.4);
+.avatar {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle, color-mix(in srgb, var(--c) 45%, #000), #111226);
+    border: 2px solid var(--c);
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 0.9rem;
 }
 
-#char-stats {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: #e2e8f0;
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
 }
 
-/* Image en carré avec un cadre lumineux */
+.roster-text { display: flex; flex-direction: column; line-height: 1.15; }
+.roster-name { font-weight: 700; font-size: 0.9rem; }
+.roster-faction { display: none; font-size: 0.72rem; color: var(--muted); }
+
+/* ---------- 4. Fiche personnage (mobile) ---------- */
+.character-sheet {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 18px 16px 24px;
+}
+
+.portrait { position: relative; }
+
 .box-image {
+    position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
-    background-color: #222442;
-    border: 2px solid #7928ca;
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 20px rgba(121, 40, 202, 0.3);
+    border: 2px solid var(--accent);
+    background:
+        radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 45%, transparent), transparent 70%),
+        linear-gradient(180deg, var(--panel), #121327);
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 35%, transparent);
+    transition: border-color 0.4s, box-shadow 0.4s;
 }
 
 #char-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    display: block;
+    object-fit: contain;
+    object-position: bottom center;
 }
 
-/* Description sur toute la largeur */
-.box-description {
-    width: 100%;
-    background: linear-gradient(135deg, #222442 0%, #1c1d38 100%);
-    border: 1px solid rgba(0, 242, 254, 0.2);
-    border-radius: 14px;
+.placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.placeholder[hidden] { display: none; }
+
+.placeholder span {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 6rem;
+    line-height: 1;
+    color: var(--accent);
+    text-shadow: 0 0 30px var(--accent);
+    opacity: 0.85;
+}
+
+.placeholder small {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.box-name { display: flex; flex-direction: column; gap: 2px; }
+
+.counter {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--muted);
+}
+
+#char-name {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.box-faction {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 0, 127, 0.4);
+    border-left: 5px solid var(--pink);
+    background: linear-gradient(135deg, rgba(255, 0, 127, 0.15), rgba(121, 40, 202, 0.15));
+    box-shadow: 0 4px 12px rgba(255, 0, 127, 0.15);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ff85c0;
+    text-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
+}
+
+.box-faction .label,
+.box-panel h3 {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.box-faction .label { color: rgba(255, 133, 192, 0.7); text-shadow: none; }
+
+.box-panel {
     padding: 14px;
-    flex: 1;
-    min-height: 180px;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%);
+    border: 1px solid rgba(121, 40, 202, 0.3);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
+.box-description { border-color: rgba(0, 242, 254, 0.2); }
+
+.box-panel h3 {
+    margin-bottom: 8px;
+    color: var(--cyan);
+    text-shadow: 0 0 6px rgba(0, 242, 254, 0.4);
+}
+
+#char-stats,
 #char-description {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     line-height: 1.6;
-    color: #cbd5e1;
+    color: var(--text-soft);
+    white-space: pre-line;       /* garde les retours à la ligne de database.js */
+}
+
+.empty {
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* Barres de statistiques (si stats = liste) */
+.stat-row { display: grid; grid-template-columns: 90px 1fr 34px; align-items: center; gap: 10px; }
+.stat-row + .stat-row { margin-top: 8px; }
+.stat-label { font-size: 0.8rem; }
+.stat-value { font-size: 0.8rem; text-align: right; color: var(--text); font-weight: 600; }
+.stat-bar { height: 8px; border-radius: 99px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+.stat-bar span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--accent), var(--cyan));
+    box-shadow: 0 0 8px var(--accent);
+}
+
+/* Précédent / suivant */
+.pager {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.pager-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--panel);
+    font-size: 1.6rem;
+    line-height: 1;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.pager-btn:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.pager-hint { font-size: 0.72rem; color: var(--muted); text-align: center; }
+
+.site-footer {
+    padding: 14px;
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--muted);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- 5. Mode PC ---------- */
+body.layout-pc { padding: 32px 24px; }
+
+body.layout-pc .app {
+    max-width: 1200px;
+    min-height: calc(100vh - 64px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+body.layout-pc .top-bar { position: static; padding: 18px 28px; }
+body.layout-pc .brand-text { font-size: 1.4rem; }
+
+body.layout-pc .layout {
+    flex-direction: row;
+}
+
+/* Menu latéral */
+body.layout-pc .roster {
+    flex: 0 0 260px;
+    border-bottom: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.15);
+    padding: 22px 14px;
+}
+
+body.layout-pc .roster-title {
+    display: block;
+    padding: 0 8px 12px;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cyan);
+}
+
+body.layout-pc .roster-list {
+    flex-direction: column;
+    gap: 8px;
+    padding: 0;
+    overflow: visible;
+}
+
+body.layout-pc .roster-item {
+    width: 100%;
+    padding: 8px 12px 8px 8px;
+    border-radius: 12px;
+}
+body.layout-pc .roster-item:hover { transform: translateX(3px); }
+
+body.layout-pc .avatar { width: 46px; height: 46px; font-size: 1.1rem; }
+body.layout-pc .roster-name { font-size: 1rem; }
+body.layout-pc .roster-faction { display: block; }
+
+/* Fiche en deux colonnes */
+body.layout-pc .character-sheet {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(320px, 1.15fr);
+    grid-template-rows: 1fr auto;
+    gap: 28px 36px;
+    padding: 32px 36px;
+}
+
+body.layout-pc .portrait { align-self: start; position: sticky; top: 24px; }
+body.layout-pc .box-image { aspect-ratio: 4 / 5; }
+body.layout-pc .info { gap: 16px; }
+body.layout-pc #char-name { font-size: 3.2rem; }
+body.layout-pc .box-panel { padding: 18px 20px; }
+body.layout-pc #char-stats,
+body.layout-pc #char-description { font-size: 0.95rem; }
+body.layout-pc .box-description { min-height: 160px; }
+body.layout-pc .pager { grid-column: 1 / -1; }
+body.layout-pc .pager-hint::after { content: " (← →)"; }
+
+/* ---------- 6. Animations & accessibilité ---------- */
+.fade-in .portrait { animation: pop 0.45s ease both; }
+.fade-in .info > * { animation: rise 0.4s ease both; }
+.fade-in .info > *:nth-child(2) { animation-delay: 0.05s; }
+.fade-in .info > *:nth-child(3) { animation-delay: 0.1s; }
+.fade-in .info > *:nth-child(4) { animation-delay: 0.15s; }
+
+@keyframes pop {
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: none; }
+}
+@keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: none; }
+}
+
+:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 
 /* =========================================
-   STYLES SPÉCIAUX DES NOMS (Ultra vibrants)
+   7. STYLES SPÉCIAUX DES NOMS
    ========================================= */
 
-/* Grim : Rouge / Orange Flamboyant */
+/* Grim : Rouge / Orange flamboyant */
 .style-grim {
     background: linear-gradient(180deg, #ffaa00 0%, #ff2a00 50%, #990000 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 10px rgba(255, 42, 0, 0.8));
 }
 
-/* Gabriel : Presque 100% Blanc éclatant avec un très léger reflet or */
+/* Gabriel : Blanc éclatant avec un léger reflet or */
 .style-gabriel {
     background: linear-gradient(180deg, #ffffff 65%, #fffde7 85%, #ffd700 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
 }
 
-/* Melio : Or Divin Scintillant */
+/* Melio : Or divin scintillant */
 .style-melio {
     background: linear-gradient(180deg, #fff3b0 0%, #ffd700 50%, #ff8800 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.9));
 }
 
-/* Mirai : Rouge vif et Rose néon */
+/* Mirai : Rouge vif et rose néon */
 .style-mirai {
     background: linear-gradient(90deg, #ffffff 10%, #ff1e56 50%, #ff0055 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 12px rgba(255, 30, 86, 0.9));
 }
 
-/* Shidou : Violet électrique et Bleu néon */
+/* Shidou : Violet électrique et bleu néon */
 .style-shidou {
     background: linear-gradient(90deg, #b5179e 15%, #7209b7 50%, #4361ee 85%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 12px rgba(114, 9, 183, 0.8));
 }
@@ -242,4 +564,3 @@ body {
     color: #ffffff;
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
-
