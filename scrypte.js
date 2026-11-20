@@ -111,7 +111,7 @@
                 return;
             }
 
-            setText(el.stats, stats, "Werte folgen…");
+            setText(el.stats, stats, "Kräfte & Fähigkeiten folgen…");
         }
 
         function show(index, options = {}) {
